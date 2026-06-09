@@ -2,7 +2,8 @@ const PARAMS = new URLSearchParams(window.location.search);
 const HELLOSOUND = document.getElementById("helloSound");
 const MEOWSOUND = document.getElementById("meowSound");
 const USERNAME = PARAMS.get("username");
-const VOLUME = parseInt(PARAMS.get("volume"));
+const MEOWVOLUME = parseInt(PARAMS.get("meowvolume"));
+const ALOVOLUME = parseInt(PARAMS.get("alovolume"));
 const MODPERMISSION = (PARAMS.get("modpermission") ?? "true") === "true";
 let helloIsOn = true;
 let meowIsOn = true;
@@ -29,12 +30,12 @@ ComfyJS.onChat = ( user, message, flags, self, extra ) => {
     }
 
     if(aloRegex.test(lowerMsg) && helloIsOn){
-        let normalizedVolume = !isNaN(VOLUME) ? Math.max(0.01, Math.min(1, VOLUME / 100)) : 1;
+        let normalizedVolume = !isNaN(ALOVOLUME) ? Math.max(0.01, Math.min(1, ALOVOLUME / 100)) : 1;
         HELLOSOUND.volume = normalizedVolume; 
         HELLOSOUND.currentTime = 0;
         HELLOSOUND.play();
     }else if(meowRegex.test(lowerMsg) && meowIsOn){
-        let normalizedVolume = !isNaN(VOLUME) ? Math.max(0.01, Math.min(1, VOLUME / 100)) : 1;
+        let normalizedVolume = !isNaN(MEOWVOLUME) ? Math.max(0.01, Math.min(1, MEOWVOLUME / 100)) : 1;
         MEOWSOUND.volume = normalizedVolume; 
         MEOWSOUND.currentTime = 0;
         MEOWSOUND.play();
